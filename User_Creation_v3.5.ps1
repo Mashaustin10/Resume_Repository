@@ -1,4 +1,5 @@
 # Try-Catch error handling
+
 Try {
 # Import modules
 Import-Module ActiveDirectory
