@@ -182,13 +182,11 @@ Write-Host "Waiting for Exchange Online. (15s)"
 Start-Sleep -s 15
 
 # Copy group membership from the template and add O365 licensing group
-Write-Host "Copying group membership from the template user and adding the Office 365 licensing group."
-Get-ADUser -Identity $Template -Properties memberof | Select-Object -ExpandProperty memberof |  Add-ADGroupMember -Members $Username
-Add-ADGroupMember -Identity "O365 Licensing Group" -Members $Username
+
 
 # Sync Azure AD again to update licensing
-Write-Host "Syncing Azure AD again to update licensing groups"
 Invoke-Command -ComputerName DC1 -ScriptBlock {Start-ADSyncSyncCycle}
+
 $Confirmation = Read-Host "Operation complete! Would you like to provision another user? (Y/N)"
 }
 Else {
